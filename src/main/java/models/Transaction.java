@@ -1,6 +1,7 @@
 package models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,6 +15,27 @@ public class Transaction {
     @Column (name = "ID_TRANSACTION")
     private int id;
 
-    @OneToMany
-    private List<Human> humans;
+    private Exchanger exchanger = new Exchanger();
+
+    @OneToMany(mappedBy = "HUMAN", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Human> humans = new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<Human> getHumans() {
+        return humans;
+    }
+
+    public void setHumans(List<Human> humans) {
+        this.humans = humans;
+    }
+
+    public Transaction() {
+    }
 }

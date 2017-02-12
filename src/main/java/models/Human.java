@@ -17,7 +17,42 @@ public class Human {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn (name = "ID_ACCOUNT")
     private Account account;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_TRANSACTION")
     private Transaction transaction;
 
+    public int getIdHuman() {
+        return idHuman;
+    }
+
+    public void setIdHuman(int idHuman) {
+        this.idHuman = idHuman;
+    }
+
+    public String getNameHuman() {
+        return nameHuman;
+    }
+
+    public void setNameHuman(String nameHuman) {
+        this.nameHuman = nameHuman;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public Human() {
+    }
 }
