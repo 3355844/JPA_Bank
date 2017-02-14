@@ -9,9 +9,9 @@ import java.util.Date;
 @Entity
 @Table(name = "EXCHANGE")
 @NamedQueries({
-        @NamedQuery(name = "Exchange.getAll", query = "SELECT e from Exchanger e"),
-        @NamedQuery(name = "Exchange.getById", query = "SELECT e from Exchanger e where e.id = :id"),
-        @NamedQuery(name = "Exchange.getByDate", query = "SELECT e from Exchanger e where e.date = :e")
+        @NamedQuery(name = "Exchanger.getAll", query = "SELECT e from Exchanger e"),
+        @NamedQuery(name = "Exchanger.getById", query = "SELECT e from Exchanger e where e.id = :id"),
+        @NamedQuery(name = "Exchanger.getByDate", query = "SELECT e from Exchanger e where e.date = :date")
 })
 public class Exchanger {
     @Id

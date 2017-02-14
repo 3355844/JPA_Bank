@@ -13,4 +13,6 @@ public interface TransactionDao {
     Transaction getById(int id);
 
     List<Transaction> getAll();
+
+    List<Transaction> getByDate();
 }

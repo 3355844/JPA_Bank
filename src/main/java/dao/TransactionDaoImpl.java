@@ -22,4 +22,9 @@ public class TransactionDaoImpl implements TransactionDao {
     public List<Transaction> getAll() {
         return null;
     }
+
+    @Override
+    public List<Transaction> getByDate() {
+        return null;
+    }
 }
