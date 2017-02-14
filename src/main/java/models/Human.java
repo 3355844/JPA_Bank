@@ -8,7 +8,12 @@ import java.util.List;
  * Created by 33558 on 12.02.2017.
  */
 @Entity
-@Table(name = "human")
+@Table(name = "HUNAN")
+@NamedQueries({
+        @NamedQuery(name = "Human.getAll", query = "SELECT h from Human h"),
+        @NamedQuery(name = "Human.getById", query = "SELECT h from Human h where h.idHuman= :id"),
+        @NamedQuery(name = "Human.getByName", query = "SELECT h from Human h where h.nameHuman = :name")
+})
 public class Human {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

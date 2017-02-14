@@ -7,6 +7,15 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "ACCOUNT")
+@NamedQueries({
+        @NamedQuery(name = "Account.getAll",
+                query = "SELECT a FROM Account a"),
+        @NamedQuery(name = "Account.getByCurrency",
+                query = "SELECT a from Account a where a.currency = :currency"),
+        @NamedQuery(name = "Account.getByHumanIdAndCurrency",
+                query = "SELECT a from Account a where a.currency = :currency and a.human.idHuman = :id"),
+        @NamedQuery(name = "Account.getById", query = "SELECT a from Account a where a.id = :id")
+})
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,12 +38,6 @@ public class Account {
                 ", state=" + state +
                 ", human=" + human +
                 '}';
-    }
-
-    public Account(String currency, Human human) {
-        this.currency = currency;
-        this.state = state;
-        this.human = human;
     }
 
     public int getId() {

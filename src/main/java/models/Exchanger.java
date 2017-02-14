@@ -8,9 +8,15 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "EXCHANGE")
+@NamedQueries({
+        @NamedQuery(name = "Exchange.getAll", query = "SELECT e from Exchanger e"),
+        @NamedQuery(name = "Exchange.getById", query = "SELECT e from Exchanger e where e.id = :id"),
+        @NamedQuery(name = "Exchange.getByDate", query = "SELECT e from Exchanger e where e.date = :e")
+})
 public class Exchanger {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID_EXCHANGE")
     private int id;
     @Column(name = "DATE")
     private Date date;
