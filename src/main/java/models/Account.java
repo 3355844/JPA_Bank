@@ -10,8 +10,6 @@ import javax.persistence.*;
 @NamedQueries({
         @NamedQuery(name = "Account.getAll",
                 query = "SELECT a FROM Account a"),
-        @NamedQuery(name = "Account.getByCurrency",
-                query = "SELECT a from Account a where a.currency = :currency"),
         @NamedQuery(name = "Account.getByHumanIdAndCurrency",
                 query = "SELECT a from Account a where a.currency = :currency and a.human.idHuman = :id"),
         @NamedQuery(name = "Account.getById", query = "SELECT a from Account a where a.id = :id")

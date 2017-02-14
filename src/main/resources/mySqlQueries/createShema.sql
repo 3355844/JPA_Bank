@@ -1,1 +1,1 @@
-CREATE SCHEMA bank ;
+CREATE SCHEMA bank;

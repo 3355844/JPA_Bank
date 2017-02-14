@@ -2,6 +2,8 @@ package dao;
 
 import models.Account;
 
+import java.util.List;
+
 /**
  * Created by 33558 on 14.02.2017.
  */
@@ -13,4 +15,9 @@ public interface AccountDao {
     void delete(Account account);
 
     Account update(Account account);
+
+    List<Account> accounts();
+
+    List<Account> getByCurrencyAndHumanId(String currency, int idHuman);
+
 }
