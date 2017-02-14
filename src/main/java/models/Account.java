@@ -12,15 +12,30 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID_ACCOUNT")
     private int id;
-    @Column (name = "UAH")
-    private double UAH;
-    @Column (name = "USD")
-    private double USD;
-    @Column (name = "EUR")
-    private double EUR;
+    @Column(name = "CURRENCY")
+    private String currency;
+    @Column(name = "STATE")
+    private double state = 0;
 
-    @OneToOne (fetch = FetchType.LAZY, mappedBy = "ACCOUNT")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_HUMAN")
     private Human human;
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", currency='" + currency + '\'' +
+                ", state=" + state +
+                ", human=" + human +
+                '}';
+    }
+
+    public Account(String currency, Human human) {
+        this.currency = currency;
+        this.state = state;
+        this.human = human;
+    }
 
     public int getId() {
         return id;
@@ -30,28 +45,20 @@ public class Account {
         this.id = id;
     }
 
-    public double getUAH() {
-        return UAH;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setUAH(double UAH) {
-        this.UAH = UAH;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
-    public double getUSD() {
-        return USD;
+    public double getState() {
+        return state;
     }
 
-    public void setUSD(double USD) {
-        this.USD = USD;
-    }
-
-    public double getEUR() {
-        return EUR;
-    }
-
-    public void setEUR(double EUR) {
-        this.EUR = EUR;
+    public void setState(double state) {
+        this.state = state;
     }
 
     public Human getHuman() {

@@ -1,16 +1,43 @@
 package models;
 
+import javax.persistence.*;
+import java.util.Date;
+
 /**
  * Created by 33558 on 12.02.2017.
  */
+@Entity
+@Table(name = "EXCHANGE")
 public class Exchanger {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+    @Column(name = "DATE")
+    private Date date;
+    @Column
     private double pairUsdUah = 27.30;
+    @Column
     private double pairUsdEur = 0.93;
+    @Column
     private double pairEurUsd = 1.05;
+    @Column
     private double pairEurUah = 29;
+    @Column
     private double pairUahUsd = 0.0361;
+    @Column
     private double pairUahEur = 0.0339;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_TRANSACTION")
+    private Transaction transaction;
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
 
     public double getExchangeUsdUah(double usd) {
         return usd * pairUsdUah;
@@ -67,8 +94,10 @@ public class Exchanger {
         this.pairEurUah = pairEurUah;
         this.pairUahUsd = pairUahUsd;
         this.pairUahEur = pairUahEur;
+        this.date = new Date();
     }
 
     public Exchanger() {
+        this.date = new Date();
     }
 }

@@ -1,25 +1,41 @@
 package models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by 33558 on 12.02.2017.
  */
 @Entity
-@Table(name = "HUMAN")
+@Table(name = "human")
 public class Human {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID_HUMAN")
     private int idHuman;
-    @Column (name = "NAME_HUMAN")
+    @Column(name = "NAME_HUMAN")
     private String nameHuman;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name = "ID_ACCOUNT")
-    private Account account;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_TRANSACTION")
-    private Transaction transaction;
+    @OneToMany(mappedBy = "human", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List< Account> accounts = new ArrayList<>();
+
+
+    @Override
+    public String toString() {
+        return "Human{" +
+                "idHuman=" + idHuman +
+                ", nameHuman='" + nameHuman + '\'' +
+                ", accounts=" + accounts +
+                '}';
+    }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     public int getIdHuman() {
         return idHuman;
@@ -35,22 +51,6 @@ public class Human {
 
     public void setNameHuman(String nameHuman) {
         this.nameHuman = nameHuman;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
-    public Transaction getTransaction() {
-        return transaction;
-    }
-
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
     }
 
     public Human() {
