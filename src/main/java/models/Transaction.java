@@ -1,13 +1,20 @@
 package models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by 33558 on 12.02.2017.
  */
 @Entity
 @Table(name = "TRANSACTION")
+@NamedQueries({
+        @NamedQuery(name = "Transaction.getAll", query = "SELECT t FROM Transaction t"),
+        @NamedQuery(name = "Transaction.getById", query = "SELECT t FROM Transaction t where t.id = :id"),
+        @NamedQuery(name = "Transaction.getByDate", query = "SELECT t from Transaction t where t.date = :date")}
+)
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +26,21 @@ public class Transaction {
     private Date date;
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "transaction")
     private Exchanger exchanger;
+
+    @ManyToMany
+    @JoinTable(name = "HUMAN_TRANSACTION",
+            joinColumns = {@JoinColumn(name = "ID_TRANSACTION", referencedColumnName = "ID_TRANSACTION")},
+            inverseJoinColumns = {@JoinColumn(name = "ID_HUMAN", referencedColumnName = "ID_HUMAN")}
+    )
+    private List<Human> humans = new ArrayList<>();
+
+    public List<Human> getHumans() {
+        return humans;
+    }
+
+    public void setHumans(List<Human> humans) {
+        this.humans = humans;
+    }
 
     public int getId() {
         return id;
@@ -53,7 +75,7 @@ public class Transaction {
     }
 
     public Transaction() {
-    this.date = new Date();
+        this.date = new Date();
     }
 
 }

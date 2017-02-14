@@ -17,7 +17,9 @@ public class Human {
     @Column(name = "NAME_HUMAN")
     private String nameHuman;
     @OneToMany(mappedBy = "human", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List< Account> accounts = new ArrayList<>();
+    private List<Account> accounts = new ArrayList<>();
+    @ManyToMany(mappedBy = "humans")
+    private List<Transaction> transactions = new ArrayList<>();
 
 
     @Override
@@ -27,6 +29,14 @@ public class Human {
                 ", nameHuman='" + nameHuman + '\'' +
                 ", accounts=" + accounts +
                 '}';
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
     }
 
     public List<Account> getAccounts() {
