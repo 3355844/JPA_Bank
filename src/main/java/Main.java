@@ -1,4 +1,7 @@
 import models.Account;
+import models.Exchanger;
+import models.Human;
+import models.Transaction;
 import service.DaoService;
 import service.PersistenceManager;
 
@@ -8,13 +11,24 @@ import service.PersistenceManager;
 public class Main {
     public static void main(String[] args) {
         DaoService daoService = new DaoService();
+
         Account account = new Account();
         account.setState(10000);
         account.setCurrency("UAH");
         daoService.getAccountDao().add(account);
 
-        new PersistenceManager().shutDown();
-        System.out.println("Finish");
+        Exchanger exchanger = new Exchanger();
+        daoService.getExchangerDao().add(exchanger);
 
+        Human human = new Human();
+        human.setNameHuman("Andriy");
+        daoService.getHumanDao().add(human);
+
+        Transaction transaction = new Transaction();
+        transaction.setNameTransaction(human.getNameHuman() + ": new Transaction");
+        daoService.getTransactionDao().add(transaction);
+
+        PersistenceManager.shutDown();
+        System.out.println("Finish");
     }
 }

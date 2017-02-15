@@ -8,8 +8,8 @@ import javax.persistence.Persistence;
  * Created by 33558 on 15.02.2017.
  */
 public abstract class PersistenceManager {
-    EntityManagerFactory factory ;
-    EntityManager entityManager ;
+   static EntityManagerFactory factory = Persistence.createEntityManagerFactory("Bank");
+   static EntityManager entityManager  = factory.createEntityManager();
 
     public EntityManagerFactory getFactory() {
         return factory;
@@ -20,11 +20,9 @@ public abstract class PersistenceManager {
     }
 
     public PersistenceManager() {
-        this.factory = Persistence.createEntityManagerFactory("Bank");
-        this.entityManager = factory.createEntityManager();
     }
 
-    public void shutDown() {
+    public static void shutDown() {
         entityManager.close();
         factory.close();
     }

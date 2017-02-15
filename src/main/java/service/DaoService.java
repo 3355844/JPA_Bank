@@ -17,9 +17,7 @@ public class DaoService {
     public DaoService() {
     }
 
-    public HumanDaoImpl getHumanDao() {
-        return humanDao;
-    }
+    public HumanDaoImpl getHumanDao() {return humanDao;}
 
     public AccountDaoImpl getAccountDao() {
         return accountDao;
