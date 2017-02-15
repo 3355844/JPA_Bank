@@ -2,6 +2,7 @@ package dao;
 
 import models.Transaction;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -14,5 +15,5 @@ public interface TransactionDao {
 
     List<Transaction> getAll();
 
-    List<Transaction> getByDate();
+    List<Transaction> getByDate(Date date);
 }

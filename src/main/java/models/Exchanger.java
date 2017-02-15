@@ -10,7 +10,6 @@ import java.util.Date;
 @Table(name = "EXCHANGE")
 @NamedQueries({
         @NamedQuery(name = "Exchanger.getAll", query = "SELECT e from Exchanger e"),
-        @NamedQuery(name = "Exchanger.getById", query = "SELECT e from Exchanger e where e.id = :id"),
         @NamedQuery(name = "Exchanger.getByDate", query = "SELECT e from Exchanger e where e.date = :date")
 })
 public class Exchanger {

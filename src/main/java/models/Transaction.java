@@ -12,7 +12,6 @@ import java.util.List;
 @Table(name = "TRANSACTION")
 @NamedQueries({
         @NamedQuery(name = "Transaction.getAll", query = "SELECT t FROM Transaction t"),
-        @NamedQuery(name = "Transaction.getById", query = "SELECT t FROM Transaction t where t.id = :id"),
         @NamedQuery(name = "Transaction.getByDate", query = "SELECT t from Transaction t where t.date = :date")}
 )
 public class Transaction {

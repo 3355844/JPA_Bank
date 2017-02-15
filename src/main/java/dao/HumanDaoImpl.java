@@ -1,35 +1,48 @@
 package dao;
 
 import models.Human;
+import service.PersistenceManager;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
  * Created by 33558 on 14.02.2017.
  */
-public class HumanDaoImpl implements HumanDao{
+public class HumanDaoImpl implements HumanDao {
+    EntityManager entityManager = PersistenceManager.getEntityManager();
+
     @Override
     public List<Human> getAll() {
-        return null;
+        TypedQuery<Human> nameQuery = entityManager.createNamedQuery("Human.getAll", Human.class);
+        return nameQuery.getResultList();
     }
 
     @Override
     public Human getById(int id) {
-        return null;
+        return entityManager.find(Human.class, id);
     }
 
     @Override
     public void add(Human human) {
-
+        entityManager.getTransaction().begin();
+        entityManager.merge(human);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void delete(Human human) {
-
+        entityManager.getTransaction().begin();
+        entityManager.remove(human);
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public Human update(Human human) {
-        return null;
+        entityManager.getTransaction().begin();
+        entityManager.merge(human);
+        entityManager.getTransaction().commit();
+        return getById(human.getIdHuman());
     }
 }

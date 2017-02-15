@@ -10,9 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "HUNANS")
 @NamedQueries({
-        @NamedQuery(name = "Human.getAll", query = "SELECT h from Human h"),
-        @NamedQuery(name = "Human.getById", query = "SELECT h from Human h where h.idHuman= :id"),
-        @NamedQuery(name = "Human.getByName", query = "SELECT h from Human h where h.nameHuman = :name")
+        @NamedQuery(name = "Human.getAll", query = "SELECT h from Human h")
 })
 public class Human {
     @Id
