@@ -8,7 +8,7 @@ import java.util.List;
  * Created by 33558 on 12.02.2017.
  */
 @Entity
-@Table(name = "HUNANS")
+@Table(name = "HUMANS")
 @NamedQueries({
         @NamedQuery(name = "Human.getAll", query = "SELECT h from Human h")
 })
@@ -24,13 +24,13 @@ public class Human {
     @ManyToMany(mappedBy = "humans")
     private List<Transaction> transactions = new ArrayList<>();
 
-
     @Override
     public String toString() {
         return "Human{" +
                 "idHuman=" + idHuman +
                 ", nameHuman='" + nameHuman + '\'' +
                 ", accounts=" + accounts +
+                ", transactions=" + transactions +
                 '}';
     }
 

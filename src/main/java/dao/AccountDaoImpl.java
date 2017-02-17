@@ -19,10 +19,11 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public void add(Account account) {
+    public Account add(Account account) {
         entityManager.getTransaction().begin();
-        entityManager.merge(account);
+        Account accountDB = entityManager.merge(account);
         entityManager.getTransaction().commit();
+        return accountDB;
     }
 
     @Override
@@ -50,6 +51,13 @@ public class AccountDaoImpl implements AccountDao {
     public List<Account> getByCurrencyAndHumanId(String currency, int idHuman) {
         Query query = entityManager.createNamedQuery("Account.getByHumanIdAndCurrency", Account.class);
         query.setParameter("currency", currency);
+        query.setParameter("id", idHuman);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Account> getAllByHumanId(int idHuman) {
+        Query query = entityManager.createNamedQuery("Account.getAllByHumanId", Account.class);
         query.setParameter("id", idHuman);
         return query.getResultList();
     }

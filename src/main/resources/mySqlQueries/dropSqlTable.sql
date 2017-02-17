@@ -1,4 +1,5 @@
 DROP TABLE exchange;
 DROP TABLE account;
-DROP TABLE humans;
+DROP TABLE human_transaction;
 DROP TABLE transaction;
+DROP TABLE humans;

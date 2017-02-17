@@ -12,7 +12,7 @@ public interface HumanDao {
 
     Human getById(int id);
 
-    void add(Human human);
+    Human add(Human human);
 
     void delete(Human human);
 

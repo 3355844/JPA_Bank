@@ -17,10 +17,11 @@ public class TransactionDaoImpl implements TransactionDao {
     EntityManager entityManager = PersistenceManager.getEntityManager();
 
     @Override
-    public void add(Transaction transaction) {
+    public Transaction add(Transaction transaction) {
         entityManager.getTransaction().begin();
-        entityManager.merge(transaction);
+        Transaction transactionDb = entityManager.merge(transaction);
         entityManager.getTransaction().commit();
+        return transactionDb;
     }
 
     @Override

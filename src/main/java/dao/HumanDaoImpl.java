@@ -25,10 +25,12 @@ public class HumanDaoImpl implements HumanDao {
     }
 
     @Override
-    public void add(Human human) {
+    public Human add(Human human) {
         entityManager.getTransaction().begin();
-        entityManager.merge(human);
+        Human humanDB =  entityManager.merge(human);
         entityManager.getTransaction().commit();
+        System.out.println(humanDB);
+        return humanDB;
     }
 
     @Override

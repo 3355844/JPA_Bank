@@ -11,7 +11,8 @@ import javax.persistence.*;
         @NamedQuery(name = "Account.getAll",
                 query = "SELECT a FROM Account a"),
         @NamedQuery(name = "Account.getByHumanIdAndCurrency",
-                query = "SELECT a from Account a where a.currency = :currency and a.human.idHuman = :id")
+                query = "SELECT a from Account a where a.currency = :currency and a.human.idHuman = :id"),
+        @NamedQuery(name = "Account.getAllByHumanId", query = "SELECT a from Account a where a.human.idHuman = :id")
 })
 public class Account {
     @Id
@@ -33,8 +34,7 @@ public class Account {
                 "id=" + id +
                 ", currency='" + currency + '\'' +
                 ", state=" + state +
-                ", human=" + human +
-                '}';
+                "," + '}';
     }
 
     public int getId() {
@@ -71,4 +71,9 @@ public class Account {
 
     public Account() {
     }
+
+    public Account(String currency) {
+        this.currency = currency;
+    }
+
 }

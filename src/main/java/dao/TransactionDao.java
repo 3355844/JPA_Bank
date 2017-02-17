@@ -9,7 +9,7 @@ import java.util.List;
  * Created by 33558 on 14.02.2017.
  */
 public interface TransactionDao {
-    void add(Transaction transaction);
+    Transaction add(Transaction transaction);
 
     Transaction getById(int id);
 

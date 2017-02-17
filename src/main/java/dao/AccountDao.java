@@ -10,7 +10,7 @@ import java.util.List;
 public interface AccountDao {
     Account getById(int id);
 
-    void add(Account account);
+    Account add(Account account);
 
     void delete(Account account);
 
@@ -19,5 +19,7 @@ public interface AccountDao {
     List<Account> accounts();
 
     List<Account> getByCurrencyAndHumanId(String currency, int idHuman);
+
+    List<Account> getAllByHumanId(int idHuman);
 
 }

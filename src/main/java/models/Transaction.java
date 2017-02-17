@@ -23,15 +23,56 @@ public class Transaction {
     private String nameTransaction;
     @Column(name = "DATE_TRANSACTION")
     private Date date;
+    @Column(name = "FROM_ACCOUNT")
+    private String idAccountFrom;
+    @Column(name = "TO_ACCOUNT")
+    private int idAccountTo;
+    @Column(name = "STATE")
+    private double state;
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "transaction")
     private Exchanger exchanger;
-
     @ManyToMany
     @JoinTable(name = "HUMAN_TRANSACTION",
             joinColumns = {@JoinColumn(name = "ID_TRANSACTION", referencedColumnName = "ID_TRANSACTION")},
             inverseJoinColumns = {@JoinColumn(name = "ID_HUMAN", referencedColumnName = "ID_HUMAN")}
     )
     private List<Human> humans = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", nameTransaction='" + nameTransaction + '\'' +
+                ", date=" + date +
+                ", idAccountFrom='" + idAccountFrom + '\'' +
+                ", idAccountTo=" + idAccountTo +
+                ", state=" + state +
+                '}';
+    }
+
+    public double getState() {
+        return state;
+    }
+
+    public void setState(double state) {
+        this.state = state;
+    }
+
+    public String getIdAccountFrom() {
+        return idAccountFrom;
+    }
+
+    public void setIdAccountFrom(String idAccountFrom) {
+        this.idAccountFrom = idAccountFrom;
+    }
+
+    public int getIdAccountTo() {
+        return idAccountTo;
+    }
+
+    public void setIdAccountTo(int idAccountTo) {
+        this.idAccountTo = idAccountTo;
+    }
 
     public List<Human> getHumans() {
         return humans;
