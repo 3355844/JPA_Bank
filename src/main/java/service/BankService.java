@@ -17,67 +17,77 @@ public class BankService {
     private String EUR = "EUR";
     private DaoService daoService = new DaoService();
 
-    public Human refill(String currency, double cash, Account account) {
+    public Human transfer(double money, Account accountFrom, Account accountTo) {
+        if (accountFrom.getState() < money) {
+            System.out.println("Transaction is failed: You have not how many money");
+            return daoService.getHumanDao().getById(accountFrom.getHuman().getIdHuman());
+        }
+        accountFrom.setState(accountFrom.getState() - money);
+        daoService.getAccountDao().update(accountFrom);
+        return refill(accountFrom.getCurrency(), money, String.valueOf(accountFrom.getId()), accountTo);
+    }
+
+    public Human refill(String currency, double cash, String idFrom, Account account) {
         if (currency.equals(account.getCurrency())) {
-            return refillProcess(currency, cash, account);
+            return refillProcess(currency, cash, idFrom, account);
         } else {
-            return refillWithExchange(currency, cash, account);
+            return refillWithExchange(currency, cash, idFrom, account);
         }
     }
 
-    private Human refillWithExchange(String currency, double cash, Account account) {
+    private Human refillWithExchange(String currency, double cash, String idFrom, Account account) {
         Exchanger exchanger = new Exchanger();
         exchanger = daoService.getExchangerDao().add(exchanger);
         System.out.println(exchanger.toString());
         if (currency.equals(UAH)) {
-            return exchangeUAH(cash, account, exchanger);
+            return exchangeUAH(cash, idFrom, account, exchanger);
         } else if (currency.equals(USD)) {
-            return exchangeUSD(cash, account, exchanger);
+            return exchangeUSD(cash, idFrom, account, exchanger);
         } else {
-            return exchangeEUR(cash, account, exchanger);
+            return exchangeEUR(cash, idFrom, account, exchanger);
         }
     }
 
-    private Human exchangeEUR(double cash, Account account, Exchanger exchanger) {
+    private Human exchangeEUR(double cash, String idFrom, Account account, Exchanger exchanger) {
         String currency;
         if (account.getCurrency().equals(USD)) {
             currency = USD;
             cash = exchanger.getExchangeEurUsd(cash);
-            return refillProcess(currency, cash, account, exchanger);
+            return refillProcess(currency, cash, idFrom, account, exchanger);
         } else {
             currency = UAH;
             cash = exchanger.getExchangeEurUah(cash);
-            return refillProcess(currency, cash, account, exchanger);
+            return refillProcess(currency, cash, idFrom, account, exchanger);
         }
     }
 
-    private Human exchangeUSD(double cash, Account account, Exchanger exchanger) {
+    private Human exchangeUSD(double cash, String idFrom, Account account, Exchanger exchanger) {
         String currency;
         if (account.getCurrency().equals(EUR)) {
             currency = EUR;
             cash = exchanger.getExchangeUsdEur(cash);
-            return refillProcess(currency, cash, account, exchanger);
+            return refillProcess(currency, cash, idFrom, account, exchanger);
         } else {
             currency = UAH;
             cash = exchanger.getExchangeUsdUah(cash);
-            return refillProcess(currency, cash, account, exchanger);
+            return refillProcess(currency, cash, idFrom, account, exchanger);
         }
     }
 
-    private Human exchangeUAH(double cash, Account account, Exchanger exchanger) {
+    private Human exchangeUAH(double cash, String idFrom, Account account, Exchanger exchanger) {
         String currency;
         if (account.getCurrency().equals(USD)) {
             currency = USD;
             cash = exchanger.getExchangeUahUsd(cash);
-            return refillProcess(currency, cash, account, exchanger);
+            return refillProcess(currency, cash, idFrom, account, exchanger);
         } else {
             currency = EUR;
             cash = exchanger.getExchangeUahEur(cash);
-            return refillProcess(currency, cash, account, exchanger);
+            return refillProcess(currency, cash, idFrom, account, exchanger);
         }
     }
 
-    private Human refillProcess(String currency, double cash, Account account, Exchanger exchanger) {
+    private Human refillProcess(String currency, double cash, String idFrom, Account account, Exchanger exchanger) {
         Human tempHuman;
         double tempState = account.getState() + cash;
         account.setState(tempState);
@@ -86,8 +96,8 @@ public class BankService {
         Transaction transaction = new Transaction();
         transaction.setState(cash);
         transaction.setIdAccountTo(account.getId());
-        transaction.setIdAccountFrom("cash refill");
-        transaction.setNameTransaction("Fill cash: " + cash + " " + currency + " to account : " + account.getCurrency());
+        transaction.setIdAccountFrom(idFrom);
+        transaction.setNameTransaction("Transaction: " + cash + " " + currency);
         transaction.setIdAccountTo(account.getId());
         List<Human> humanList = transaction.getHumans();
         humanList.add(tempHuman);
@@ -100,11 +110,10 @@ public class BankService {
         List<Transaction> transactionList = tempHuman.getTransactions();
         transactionList.add(transaction);
         tempHuman.setTransactions(transactionList);
-        System.out.println(transaction.toString());
         return daoService.getHumanDao().update(tempHuman);
     }
 
-    private Human refillProcess(String currency, double cash, Account account) {
+    private Human refillProcess(String currency, double cash, String idFrom, Account account) {
         Human tempHuman;
         double tempState = account.getState() + cash;
         account.setState(tempState);
@@ -113,8 +122,8 @@ public class BankService {
         Transaction transaction = new Transaction();
         transaction.setState(cash);
         transaction.setIdAccountTo(account.getId());
-        transaction.setIdAccountFrom("cash refill");
-        transaction.setNameTransaction("Fill cash: " + cash + " " + currency + " to account : " + account.getCurrency());
+        transaction.setIdAccountFrom(idFrom);
+        transaction.setNameTransaction("Transaction : " + cash + " " + currency);
         transaction.setIdAccountTo(account.getId());
         List<Human> humanList = transaction.getHumans();
         humanList.add(tempHuman);
