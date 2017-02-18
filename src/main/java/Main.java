@@ -11,7 +11,7 @@ public class Main {
         BankService service = new BankService();
         Human human = service.createHuman("Human 18/02/17");
 
-        human =  service.refill("UAH", 1000, human.getAccounts().get(0));
+        human =  service.refill("EUR", 1000, human.getAccounts().get(0));
 
         System.out.println(human.toString());
         System.out.println("Finish");

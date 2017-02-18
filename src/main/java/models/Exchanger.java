@@ -36,6 +36,29 @@ public class Exchanger {
     @JoinColumn(name = "ID_TRANSACTION")
     private Transaction transaction;
 
+    @Override
+    public String toString() {
+        return "Exchanger{" +
+                "id=" + id +
+                ", date=" + date +
+                ", pairUsdUah=" + pairUsdUah +
+                ", pairUsdEur=" + pairUsdEur +
+                ", pairEurUsd=" + pairEurUsd +
+                ", pairEurUah=" + pairEurUah +
+                ", pairUahUsd=" + pairUahUsd +
+                ", pairUahEur=" + pairUahEur +
+                ", transaction=" + transaction +
+                '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Transaction getTransaction() {
         return transaction;
     }

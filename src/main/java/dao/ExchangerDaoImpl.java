@@ -17,10 +17,19 @@ public class ExchangerDaoImpl implements ExchangerDao {
     EntityManager entityManager = PersistenceManager.getEntityManager();
 
     @Override
-    public void add(Exchanger exchanger) {
+    public Exchanger add(Exchanger exchanger) {
         entityManager.getTransaction().begin();
-        entityManager.merge(exchanger);
+        Exchanger tempExchanger = entityManager.merge(exchanger);
         entityManager.getTransaction().commit();
+        return tempExchanger;
+    }
+
+    @Override
+    public Exchanger update(Exchanger exchanger) {
+        entityManager.getTransaction().begin();
+        Exchanger tempExchanger = entityManager.merge(exchanger);
+        entityManager.getTransaction().commit();
+        return tempExchanger;
     }
 
     @Override
