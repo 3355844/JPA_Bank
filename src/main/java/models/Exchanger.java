@@ -47,7 +47,6 @@ public class Exchanger {
                 ", pairEurUah=" + pairEurUah +
                 ", pairUahUsd=" + pairUahUsd +
                 ", pairUahEur=" + pairUahEur +
-                ", transaction=" + transaction +
                 '}';
     }
 

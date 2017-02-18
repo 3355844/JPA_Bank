@@ -93,8 +93,10 @@ public class BankService {
         humanList.add(tempHuman);
         transaction.setHumans(humanList);
         transaction = daoService.getTransactionDao().add(transaction);
+        transaction.setExchanger(exchanger);
+        transaction = daoService.getTransactionDao().update(transaction);
         exchanger.setTransaction(transaction);
-        daoService.getExchangerDao().update(exchanger);
+        exchanger = daoService.getExchangerDao().update(exchanger);
         List<Transaction> transactionList = tempHuman.getTransactions();
         transactionList.add(transaction);
         tempHuman.setTransactions(transactionList);

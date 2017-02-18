@@ -25,6 +25,14 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     @Override
+    public Transaction update(Transaction transaction) {
+        entityManager.getTransaction().begin();
+        Transaction tempTransaction = entityManager.merge(transaction);
+        entityManager.getTransaction().commit();
+        return tempTransaction;
+    }
+
+    @Override
     public Transaction getById(int id) {
         return entityManager.find(Transaction.class, id);
     }

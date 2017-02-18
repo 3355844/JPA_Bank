@@ -10,6 +10,7 @@ import java.util.List;
  */
 public interface TransactionDao {
     Transaction add(Transaction transaction);
+    Transaction update(Transaction transaction);
 
     Transaction getById(int id);
 

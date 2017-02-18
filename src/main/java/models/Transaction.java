@@ -47,6 +47,7 @@ public class Transaction {
                 ", idAccountFrom='" + idAccountFrom + '\'' +
                 ", idAccountTo=" + idAccountTo +
                 ", state=" + state +
+                ", exchanger=" + exchanger +
                 '}';
     }
 
