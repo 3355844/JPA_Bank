@@ -17,6 +17,36 @@ public class BankService {
     private String EUR = "EUR";
     private DaoService daoService = new DaoService();
 
+    public double getBalance(Human human, String currency) {
+        Exchanger exchanger = new Exchanger();
+        double tempState = 0;
+        for (Account account : human.getAccounts()) {
+            if (account.getCurrency().equals(currency)) {
+                tempState = tempState + account.getState();
+            } else {
+                if (currency.equals(EUR)) {
+                    if (account.getCurrency().equals(UAH))
+                        tempState = tempState + exchanger.getExchangeUahEur(account.getState());
+                    if (account.getCurrency().equals(USD))
+                        tempState = tempState + exchanger.getExchangeUsdEur(account.getState());
+                }
+                if (currency.equals(USD)) {
+                    if (account.getCurrency().equals(UAH))
+                        tempState = tempState + exchanger.getExchangeUahUsd(account.getState());
+                    if (account.getCurrency().equals(EUR))
+                        tempState = tempState + exchanger.getExchangeEurUsd(account.getState());
+                }
+                if (currency.equals(UAH)) {
+                    if (account.getCurrency().equals(USD))
+                        tempState = tempState + exchanger.getExchangeUsdUah(account.getState());
+                    if (account.getCurrency().equals(EUR))
+                        tempState = tempState + exchanger.getExchangeEurUah(account.getState());
+                }
+            }
+        }
+        return tempState;
+    }
+
     public Human transfer(double money, Account accountFrom, Account accountTo) {
         if (accountFrom.getState() < money) {
             System.out.println("Transaction is failed: You have not how many money");
@@ -38,7 +68,6 @@ public class BankService {
     private Human refillWithExchange(String currency, double cash, String idFrom, Account account) {
         Exchanger exchanger = new Exchanger();
         exchanger = daoService.getExchangerDao().add(exchanger);
-        System.out.println(exchanger.toString());
         if (currency.equals(UAH)) {
             return exchangeUAH(cash, idFrom, account, exchanger);
         } else if (currency.equals(USD)) {
@@ -132,7 +161,6 @@ public class BankService {
         List<Transaction> transactionList = tempHuman.getTransactions();
         transactionList.add(transaction);
         tempHuman.setTransactions(transactionList);
-        System.out.println(transaction.toString());
         return daoService.getHumanDao().update(tempHuman);
     }
 

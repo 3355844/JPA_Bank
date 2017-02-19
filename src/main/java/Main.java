@@ -10,12 +10,22 @@ import service.PersistenceManager;
 public class Main {
     public static void main(String[] args) {
         BankService service = new BankService();
-        Human human = service.createHuman("Human 18/02/17");
+
+        Human human = service.createHuman("Human 19/02/17");
+
         human = service.refill("EUR", 1000, "cash", human.getAccounts().get(0));
         human = service.refill("USD", 2000, "cash", human.getAccounts().get(2));
-        human = service.transfer(300, human.getAccounts().get(0), human.getAccounts().get(1));
-        for (Transaction t : human.getTransactions()) {
-            System.out.println(t.toString());
+
+        human = service.transfer(500, human.getAccounts().get(0), human.getAccounts().get(1));
+
+        double accountBalance = service.getBalance(human, "UAH");
+
+        System.out.println("Humans balance: " + accountBalance);
+        for (Account account : human.getAccounts()) {
+            System.out.println("State "+ account.getCurrency()+ " " + account.getState());
+        }
+        for (Transaction transaction : human.getTransactions()) {
+            System.out.println(transaction.getNameTransaction()+ "From: " + transaction.getIdAccountFrom());
         }
         System.out.println("Finish");
         PersistenceManager.shutDown();
