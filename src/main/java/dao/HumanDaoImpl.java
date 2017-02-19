@@ -29,7 +29,6 @@ public class HumanDaoImpl implements HumanDao {
         entityManager.getTransaction().begin();
         Human humanDB =  entityManager.merge(human);
         entityManager.getTransaction().commit();
-        System.out.println(humanDB);
         return humanDB;
     }
 
